@@ -7,7 +7,7 @@ import chess.svg
 import chess.engine
 from IPython.display import display
 import time
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
 
 def rollout(startboard):
     #Tahtanin pozisyonundan oyun bitene kadar rastgele hamleler yapiyor. Oyun bitiminde puani geri donduruyor.

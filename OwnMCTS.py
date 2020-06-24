@@ -54,8 +54,6 @@ class Node:
         #Ni = self(parent).playouts ->  stands for the total number of simulations after the i-th move run by the parent node of the one considered
         #c = Exp ->  is the exploration parameter—theoretically equal to √2; in practice usually chosen empirically
        
-
-        # selectedMove = sorted(self.childs, key = lambda c: c.score/(c.playouts + eps) + Exp * math.sqrt(math.log(self.playouts)/(c.playouts+eps)))[-1]
         selectedMove = sorted(self.childs, key = lambda c: c.score/(c.playouts + eps) + math.sqrt(2*math.log(self.playouts)/(c.playouts+eps)))[-1]
         return selectedMove
            
@@ -98,25 +96,13 @@ def MCTS(rootfen,itermax, verbose = False):
       
     return sorted(root.childs, key = lambda c: c.playouts)[-1].move # En iyi hamle geri donduruluyor.
 
-
-
-# TODOS
-# Yapilan her hamlaenin stockfish scorunu sakla, tablolastir. ++ 
-# Farkli iterasyon ve expolaration paremetrelerininin, hesaplama suresini sakla, karsilastir. +
-# Rapor, Video + 
-
-
 board = chess.Board()
 
 # YZ nin yaptigi hamleler, stockfish satranc motoruyla degerlendirilmektedir.
 engine = chess.engine.SimpleEngine.popen_uci("/home/robotic/Downloads/stockfish-11-linux/stockfish-11-linux/src/stockfish")
 
-# board.push_uci(MCTS(board.fen(),iterN).uci())
-
 # info = engine.analyse(board, chess.engine.Limit(time=0.1))
 # print(info)
-
-# # print(float(str(info["score"])))
 
 WhiteStockScore = [] # Beyazin hamlerinin stockFish scoru
 BlackStockScore = [] # Siyahin hamlelerinin stockFish scoru
@@ -182,30 +168,20 @@ f = plt.figure(1)
 plt.plot(WhiteStockScore)
 plt.ylabel('WhiteScore')
 plt.xlabel('chessMove')
-# f.show()
 
 g = plt.figure(2)
 plt.plot(BlackStockScore)
 plt.ylabel('BlackScore')
 plt.xlabel('chessMove')
-# g.show()
 
 h = plt.figure(3)
 plt.plot(WhiteTimes)
 plt.ylabel('White calculation times')
 plt.xlabel('chess move')
-# h.show()
 
 e = plt.figure(4)
 plt.plot(BlackTimes)
 plt.ylabel('Black calculation times')
 plt.xlabel('chess move')
-# e.show()
 
 plt.show()
-
-
-
-
-
-
